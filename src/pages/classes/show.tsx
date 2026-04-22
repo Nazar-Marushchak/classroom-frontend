@@ -4,7 +4,7 @@ import {ClassDetails} from "@/types";
 import {ShowView, ShowViewHeader} from "@/components/refine-ui/views/show-view.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 import {Card} from "@/components/ui/card.tsx";
-import {Separator} from "@radix-ui/react-select";
+import { Separator } from "@/components/ui/separator";
 import {Button} from "@/components/ui/button.tsx";
 import {AdvancedImage} from "@cloudinary/react"
 import { bannerPhoto } from "@/lib/cloudinary";
@@ -41,11 +41,16 @@ const Show = () => {
             <ShowViewHeader resource="classes" title="Class Details" />
 
             <div className="banner">
-                {classDetails.bannerUrl ? (
-                    <AdvancedImage cldImg={bannerPhoto(
-                    classDetails.bannerCldPubId ?? "", classDetails.name)}  alt="Class Banner" />
-                    ) :
-                <div className="placeholder" />}
+                {classDetails.bannerCldPubId ? (
+                   <AdvancedImage
+                       cldImg={bannerPhoto(classDetails.bannerCldPubId, classDetails.name)}
+                       alt="Class Banner"
+                      />
+                    ) : classDetails.bannerUrl ? (
+                        <img src={classDetails.bannerUrl} alt="Class Banner" />
+                  ) : (
+                      <div className="placeholder" />
+                )}
             </div>
             <Card className="details-card">
                 <div className="details-header">
